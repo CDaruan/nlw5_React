@@ -1,0 +1,69 @@
+## Iniciar
+npx create-next-app >>nome_projeto<<
+
+deletar:
+    README.md
+    styles/*
+    public/*
+
+rodar aplicação
+yarn dev
+
+## adicionar typescript types
+yarn add typescript @types/react @types/node -D
+
+## configuração moderna de css com sass
+yarn add sass
+
+## iniciar em produção
+yarn build
+yarn start 
+
+
+## uso de imagem de forma inteligente:
+importar "Image" do next e informar altura e largura da imagem q será carregada (recomendado usar 3x o tamanho q será exibido no navegador)
+import Image from 'next/image'
+<Image width={192} height={192} 
+objectFit="cover"    -----> ajustar para nao distorcer a imagem ("cover" ou "contain")
+src={>>LINK<<}/>
+
+
+criar arquivo ./next.config.js contendo
+module.exports ={images:{domains: ['>>LINK<<'],},}
+
+
+##mostrar texto com tags html formatado =dangerouslySetInnerHTML
+/**
+*<div className={styles.description} dangerouslySetInnerHTML={{ __html: episode.description }} />
+*/
+
+## usar fallback do getStaticPaths
+/**
+* fallback: false --->  nao gera nenhuma pagina q nao seja as listadas em paths
+* fallback: true ---> busca pag nao listadas em paths pelo navegador do cliente 
+*          para funcionar precisa usar useRouter
+*          Ex: 
+*              import {useRouter} from 'next/router
+*              export default function Episode({episode}: EpisodeProps){
+*              const router = useRouter();
+*                  if(router.idFallback){
+*                      return <p> Carregando....</p>
+*                  }
+*              }
+* fallback: blocking ---> busca pag nao listadas em paths no servidor do next
+*/
+
+
+## slider para musica
+yarn add rc-slider
+
+
+## acessar elemento com react
+const audioRef = useRef<HTMLAudioElement>(null);
+<audio src={episode.url} autoPlay ref={audioRef} />
+audioRef.current.play();
+
+
+## autenticação com next Auth
+yarn add next-auth
+yarn add -D @types/next-auth
